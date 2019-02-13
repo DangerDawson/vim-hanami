@@ -77,12 +77,12 @@ endfu
 " and try read .hanamirc in project root
 " returnes 1 or 0
 fu! s:HanamiEnsure(path)
-  if match(a:path, '/lib/') > -1
+  if match(a:path, '/spec/') > -1
+    return filereadable(substitute(a:path, 'spec/.*', '.hanamirc', 'g'))
+  elseif match(a:path, '/lib/') > -1
     return filereadable(substitute(a:path, 'lib/.*', '.hanamirc', 'g'))
   elseif match(a:path, '/apps/') > -1
     return filereadable(substitute(a:path, 'apps/.*', '.hanamirc', 'g'))
-  elseif match(a:path, '/spec/') > -1
-    return filereadable(substitute(a:path, 'spec/.*', '.hanamirc', 'g'))
   endif
 endfunction
 
@@ -213,17 +213,22 @@ endfunction
 " and try read .hanamirc in project root
 " returnes path_to_rc 0
 fu! s:HanamiRcPath(path)
-  if match(a:path, '/apps/') > -1
-    if filereadable(substitute(a:path, 'apps/.*', '.hanamirc', 'g'))
-      return substitute(a:path, 'apps/.*', '.hanamirc', 'g')
+  if match(a:path, '/spec/') > -1
+    if filereadable(substitute(a:path, 'spec/.*', '.hanamirc', 'g'))
+      return substitute(a:path, 'spec/.*', '.hanamirc', 'g')
     endif
   elseif match(a:path, '/lib/') > -1
     if filereadable(substitute(a:path, 'lib/.*', '.hanamirc', 'g'))
       return substitute(a:path, 'lib/.*', '.hanamirc', 'g')
     endif
+
   elseif match(a:path, '/spec/') > -1
     if filereadable(substitute(a:path, 'spec/.*', '.hanamirc', 'g'))
       return substitute(a:path, 'spec/.*', '.hanamirc', 'g')
+    endif
+  elseif match(a:path, '/apps/') > -1
+    if filereadable(substitute(a:path, 'apps/.*', '.hanamirc', 'g'))
+      return substitute(a:path, 'apps/.*', '.hanamirc', 'g')
     endif
   endif
 endfunction
