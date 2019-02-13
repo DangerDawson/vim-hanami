@@ -182,13 +182,13 @@ fu! s:PathSpecRepoToEntity(path)
 endfunction
 
 fu! s:PathLibToSpec(path)
-  let path = substitute(a:path, '/lib/', '/spec/', 'g')
+  let path = substitute(a:path, '/lib/', '/spec/lib/', 'g')
   let path = substitute(path, '.rb', '_spec.rb', 'g')
   return path
 endfunction
 
 fu! s:PathSpecToLib(path)
-  let path = substitute(a:path, '/spec/', '/lib/', 'g')
+  let path = substitute(a:path, '/spec/lib/', '/lib/', 'g')
   let path = substitute(path, '_spec.rb', '.rb', 'g')
   return path
 endfunction
